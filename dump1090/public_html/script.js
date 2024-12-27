@@ -125,6 +125,28 @@ function initialize() {
 	}, 1000);
 }
 
+function updateDeviceData() {
+  fetch('https://api.fanstudio.tech/feeyo/device-data.php?uuid=这里填你的站点uuid')
+    .then(response => response.json())
+    .then(data => {
+      const message_count = data.data[0].message_count;
+      const anum_count = data.data[0].anum_count;
+      const onground_anum_count = data.data[0].onground_anum_count;
+      const onground_fnum_count = data.data[0].onground_fnum_count;
+
+      console.log('昨日消息数:', data.data[0].message_count);
+      console.log('昨日飞机数:', data.data[0].anum_count);
+      console.log('昨日地面飞机数:', data.data[0].onground_anum_count);
+      console.log('昨日地面航班数:', data.data[0].onground_fnum_count);
+      document.getElementById('message_count').textContent = message_count;
+      document.getElementById('anum_count').textContent = anum_count;
+      document.getElementById('onground_anum_count').textContent = onground_anum_count;
+      document.getElementById('onground_fnum_count').textContent = onground_fnum_count;
+    })
+}
+
+updateDeviceData();
+
 // This looks for planes to reap out of the master Planes variable
 function reaper() {
 	PlanesToReap = 0;
